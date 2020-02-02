@@ -37,9 +37,7 @@ public class Tank : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.up * -1, out hit, 25.0f))
         {
             transform.eulerAngles = hit.collider.transform.eulerAngles;
-
-            Vector3 toHoverHeight = transform.up * -1 * (hit.distance - hoverHeight);
-            transform.Translate(toHoverHeight);
+            transform.Translate(transform.up * -1 * (hit.distance - hoverHeight));
         }
     }
 
