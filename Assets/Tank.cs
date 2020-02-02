@@ -23,6 +23,12 @@ public class Tank : MonoBehaviour
     void Update()
     {
         if (Input.GetButtonDown("Fire")) fire();
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.up * -1, out hit, 25.0f))
+        {
+            transform.eulerAngles = hit.collider.transform.eulerAngles;
+        }
     }
 
     private void FixedUpdate()
@@ -34,12 +40,11 @@ public class Tank : MonoBehaviour
         turret.localEulerAngles += new Vector3(0, 1, 0) * Time.deltaTime * 30 * Input.GetAxisRaw("RotateTurret");
     }
 
-
     void fire()
     {
         RaycastHit hit;
         Debug.DrawRay(barrel.position, barrel.forward, Color.cyan, 1000);
-        if (Physics.Raycast(barrel.position, barrel.forward, out hit, 25.0f))
+        if (Physics.Raycast(barrel.position, barrel.forward, out hit, 1000))
         {
             if(hit.collider.gameObject.tag != "Indestructible")
             {
