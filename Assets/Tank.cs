@@ -28,10 +28,6 @@ public class Tank : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        movement = Vector3.ClampMagnitude(movement, 1) * speed * Time.deltaTime;
-        transform.Translate(movement);
-
         turret.localEulerAngles += new Vector3(0, 1, 0) * Time.deltaTime * 30 * Input.GetAxisRaw("RotateTurret");
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.up * -1, out hit, 25.0f))
@@ -39,6 +35,10 @@ public class Tank : MonoBehaviour
             transform.eulerAngles = hit.collider.transform.eulerAngles;
             transform.Translate(transform.up * -1 * (hit.distance - hoverHeight));
         }
+
+        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        movement = Vector3.ClampMagnitude(movement, 1) * speed * Time.deltaTime;
+        transform.Translate(movement);
     }
 
     void fire()
