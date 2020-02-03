@@ -32,9 +32,11 @@ public class Agent : MonoBehaviour {
 		Vector3 r = Vector3.zero;
 		var neighs = world.getNeigh(this, 13);
 		if (neighs.Count == 0) return r;
+
 		foreach (var agent in neighs) r += agent.xPosition;
 		r /= neighs.Count;
 		r -= this.xPosition;
+
 		return Vector3.Normalize(r);
 	}
 
@@ -43,6 +45,7 @@ public class Agent : MonoBehaviour {
 		Vector3 r = Vector3.zero;
 		var neighs = world.getNeigh(this, 13);
 		if (neighs.Count == 0) return r;
+
 		foreach (var agent in neighs)
 		{
 			Vector3 twm = this.xPosition - agent.xPosition;
@@ -51,6 +54,7 @@ public class Agent : MonoBehaviour {
 				r += Vector3.Normalize(twm) / Vector3.Magnitude(twm) / Vector3.Magnitude(twm);
 			}
 		}
+
 		return Vector3.Normalize(r);
 	}
 
@@ -59,7 +63,9 @@ public class Agent : MonoBehaviour {
 		Vector3 r = Vector3.zero;
 		var neighs = world.getNeigh(this, 13);
 		if (neighs.Count == 0) return r;
+
 		foreach (var agent in neighs) r += agent.velocity;
+
 		return Vector3.Normalize(r);
 	}
 
