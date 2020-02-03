@@ -23,9 +23,8 @@ public class Agent : MonoBehaviour {
 
 	private void LateUpdate()
 	{
-
-
 		transform.position = xPosition;
+		transform.rotation = Quaternion.FromToRotation(Vector3.forward, velocity);
 	}
 
 	Vector3 cohesion(){
@@ -43,7 +42,7 @@ public class Agent : MonoBehaviour {
 	Vector3 separation()
 	{
 		Vector3 r = Vector3.zero;
-		var neighs = world.getNeigh(this, 13);
+		var neighs = world.getNeigh(this, 3);
 		if (neighs.Count == 0) return r;
 
 		foreach (var agent in neighs)
@@ -71,6 +70,6 @@ public class Agent : MonoBehaviour {
 
 	Vector3 combine()
 	{
-		return cohesion() + separation() + alignment();
+		return cohesion() + separation() * 2 + alignment();
 	}
 }
