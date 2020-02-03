@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tank : MonoBehaviour
 {
-
     public float hoverHeight = 0.2f;
     public float speed = 15;
 
@@ -32,7 +31,9 @@ public class Tank : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.up * -1, out hit, 25.0f))
         {
-            transform.eulerAngles = hit.collider.transform.eulerAngles;
+            //transform.eulerAngles = hit.collider.transform.eulerAngles;
+            Debug.Log(hit.normal);
+            transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
             transform.Translate(transform.up * -1 * (hit.distance - hoverHeight));
         }
 
