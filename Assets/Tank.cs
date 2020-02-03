@@ -29,7 +29,7 @@ public class Tank : MonoBehaviour
     {
         turret.localEulerAngles += new Vector3(0, 1, 0) * Time.deltaTime * 30 * Input.GetAxisRaw("RotateTurret");
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.up * -1, out hit, 25.0f))
+        if (Physics.Raycast(transform.position + transform.forward*0.5f, transform.up * -1, out hit, 25.0f)) // cast at the front so we don't risk hitting previous plane after rotation
         {
             //transform.eulerAngles = hit.collider.transform.eulerAngles;
             Debug.Log(hit.normal);
