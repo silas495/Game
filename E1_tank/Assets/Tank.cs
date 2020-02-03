@@ -10,7 +10,6 @@ public class Tank : MonoBehaviour
     Transform turret;
     Transform barrel;
 
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log(gameObject.name);
@@ -18,28 +17,23 @@ public class Tank : MonoBehaviour
         barrel = transform.Find("Turret/BarrelTip");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Fire")) fire();
-
     }
 
     private void FixedUpdate()
     {
+        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        movement = Vector3.ClampMagnitude(movement, 1) * speed * Time.deltaTime;
+        transform.Translate(movement);
         turret.localEulerAngles += new Vector3(0, 1, 0) * Time.deltaTime * 30 * Input.GetAxisRaw("RotateTurret");
         RaycastHit hit;
         if (Physics.Raycast(transform.position + transform.forward*0.5f, transform.up * -1, out hit, 25.0f)) // cast at the front so we don't risk hitting previous plane after rotation
         {
-            //transform.eulerAngles = hit.collider.transform.eulerAngles;
-            Debug.Log(hit.normal);
             transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-            transform.Translate(transform.up * -1 * (hit.distance - hoverHeight));
+            transform.Translate(transform.up * -1 * (hit.distance - hoverHeight)); 
         }
-
-        Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        movement = Vector3.ClampMagnitude(movement, 1) * speed * Time.deltaTime;
-        transform.Translate(movement);
     }
 
     void fire()
