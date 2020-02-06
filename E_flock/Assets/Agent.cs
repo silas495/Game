@@ -42,7 +42,7 @@ public class Agent : MonoBehaviour {
 	Vector3 separation()
 	{
 		Vector3 r = Vector3.zero;
-		var neighs = world.getNeigh(this, 3);
+		var neighs = world.getNeigh(this, 13);
 		if (neighs.Count == 0) return r;
 
 		foreach (var agent in neighs)
@@ -70,6 +70,6 @@ public class Agent : MonoBehaviour {
 
 	Vector3 combine()
 	{
-		return cohesion() + separation() * 2 + alignment();
+		return cohesion() + separation() + alignment();
 	}
 }
