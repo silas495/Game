@@ -40,7 +40,7 @@ public class Tank : MonoBehaviour
         Debug.DrawRay(barrel.position, barrel.forward, Color.cyan, 1000);
         if (Physics.Raycast(barrel.position, barrel.forward, out hit, 1000))
         {
-            if(hit.collider.gameObject.tag != "Indestructible")
+            if(hit.collider.gameObject.tag != CompareTag("Indestructible"))
             {
                 Debug.Log(hit.collider.gameObject.name);
                 Destroy(hit.collider.gameObject);
